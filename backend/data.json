@@ -1,17 +1,28 @@
 {
   "students": [
     {
-      "_id": "stu_d15503b3-9aff-413e-8b04-bcb0720129c4",
-      "studentId": "1111",
+      "_id": "stu_3690319b-c281-4543-81eb-fb68e2f76e2d",
+      "studentId": "1234",
       "name": "fdsa",
-      "phone": "68465",
-      "password": "1111",
-      "schoolId": "589",
+      "phone": "1565",
+      "password": "1234",
+      "schoolId": "65465",
       "class": "NMMS",
       "quizAttempted": []
     }
   ],
-  "teachers": [],
+  "teachers": [
+    {
+      "_id": "tch_e89f836f-ae00-432f-885c-f59857e11091",
+      "teacherId": "1234",
+      "name": "faes",
+      "phone": "6486",
+      "password": "1234",
+      "schoolId": "65465",
+      "quizzesCreated": [],
+      "questionAdded": []
+    }
+  ],
   "questions": [],
   "quizzes": [],
   "reports": [],

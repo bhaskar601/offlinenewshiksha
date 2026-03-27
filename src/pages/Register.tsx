@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useToast } from '@/components/ui/use-toast';
 const API_URL = import.meta.env.VITE_API_URL;
+import Header from '@/components/Header';
 import {
   Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle,
 } from '@/components/ui/card';
@@ -118,6 +119,7 @@ const Register: React.FC = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4 py-8">
+      <Header/>
       <Card className="w-full max-w-md mx-auto">
         {!isAdminVerified ? (
           <>

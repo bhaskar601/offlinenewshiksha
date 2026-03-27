@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 const API_URL = import.meta.env.VITE_API_URL;
+import Header from '@/components/Header';
 import {
   Card,
   CardContent,
@@ -80,6 +81,7 @@ const Login: React.FC = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4 sm:px-6 md:px-8 py-10">
+      <header/>
       <Card className="w-full max-w-md sm:max-w-sm md:max-w-md mx-auto shadow-md">
         <CardHeader className="space-y-1 flex flex-col items-center">
           <div className="flex items-center justify-center p-3 bg-primary/10 rounded-full mb-2">

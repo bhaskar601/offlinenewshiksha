@@ -3,6 +3,7 @@ import { useToast } from "@/components/ui/use-toast";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
+import Header from '@/components/Header';
 const API_URL = import.meta.env.VITE_API_URL;
 interface Question {
   _id: string;
@@ -187,6 +188,7 @@ export default function CreateQuiz() {
 
   return (
     <div className="p-4">
+      <Header/>
       <h2 className="text-xl font-bold mb-4">Create Quiz</h2>
 
       <div className="flex gap-4 mb-4">

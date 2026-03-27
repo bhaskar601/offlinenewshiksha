@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button"; // adjust if needed
-
+import Header from '@/components/Header';
 
 const Authorization: React.FC = () => {
   const [username, setUsername] = useState("");
@@ -29,6 +29,8 @@ const Authorization: React.FC = () => {
         fontFamily: "Segoe UI, sans-serif",
       }}
     >
+      <header/
+      >
       <h2 style={{ marginBottom: "20px", textAlign: "center" }}>Admin Login</h2>
 
       <label style={{ fontWeight: 600 }}>Username</label>

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import Header from '@/components/Header';
 const API_URL = import.meta.env.VITE_API_URL;
 export default function LoginStudent() {
   const [id, setid] = useState("");
@@ -40,6 +41,7 @@ export default function LoginStudent() {
 
   return (
     <div>
+      <Header/>
       <div>Enter student id</div>
       <input value={id} onChange={changeid} />
 

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import Header from '@/components/Header';
 
 interface Question {
   _id: string;
@@ -103,6 +104,7 @@ const VocabularyQuizPage: React.FC = () => {
 
   return (
     <div style={styles.container}>
+      <Header/>
       <h1 style={styles.title}>📘 Vocabulary Practice</h1>
 
       {/* All Chapters */}

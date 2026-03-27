@@ -2,6 +2,7 @@ import axios from 'axios';
 import { AlertCircle, BarChart3, CheckCircle, Clock, ExternalLink, Image, Lightbulb, SkipForward, Target, Timer, Trophy, Video, XCircle } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import Header from '@/components/Header';
 import { Cell, Legend, Pie, PieChart, ResponsiveContainer, Tooltip } from 'recharts';
 const API_URL = import.meta.env.VITE_API_URL;
 interface Question {
@@ -149,6 +150,7 @@ const getResult = () => {
 
     return (
       <div className="bg-amber-50 border-l-4 border-amber-400 p-4 rounded-r-lg">
+        <Header/>
         <div className="flex items-start gap-2">
           <Lightbulb className="text-amber-600 mt-0.5 flex-shrink-0" size={18} />
           <div className="flex-1">
