@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const { readJSON, writeJSON, safeArray, makeId } = require("../lib/dataStore");
-require("dotenv").config();
  
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY; 
 
