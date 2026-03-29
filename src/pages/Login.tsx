@@ -82,8 +82,13 @@ const Login: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4 sm:px-6 md:px-8 py-10">
-      <header/>
+    // <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4 sm:px-6 md:px-8 py-10">
+      // <Header/>
+  <div className="min-h-screen bg-gray-50">
+    <Header />
+
+    <div className="flex items-center justify-center px-4 py-8">
+      {/* <Card className="w-full max-w-md mx-auto"></Card> */}
       <Card className="w-full max-w-md sm:max-w-sm md:max-w-md mx-auto shadow-md">
         <CardHeader className="space-y-1 flex flex-col items-center">
           <div className="flex items-center justify-center p-3 bg-primary/10 rounded-full mb-2">
@@ -154,6 +159,7 @@ const Login: React.FC = () => {
         </form>
       </Card>
     </div>
+  </div>
   );
 };
 

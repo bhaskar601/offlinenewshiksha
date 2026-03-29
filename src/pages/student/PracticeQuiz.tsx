@@ -5,6 +5,8 @@ import { useParams } from 'react-router-dom';
 import Header from '@/components/Header';
 import { Cell, Legend, Pie, PieChart, ResponsiveContainer, Tooltip } from 'recharts';
 import { getApiBaseUrl } from "@/lib/apiBase";
+import { isCompetitiveClass } from "@/lib/studentClass";
+import { Badge } from "@/components/ui/badge";
 
 const API_URL = getApiBaseUrl();
 
@@ -47,7 +49,10 @@ const [answers, setAnswers] = useState<{ [questionId: string]: string }>({});
         console.log(studentCookie)
         const parsed = studentCookie ? JSON.parse(studentCookie) : null;
         const className = parsed?.student?.class || parsed?.class || null;
-        const res = await axios.get(`${API_URL}/questions/${className}/${subject}/${topic}`);
+        const path = [className, subject, topic]
+          .map((seg) => (seg != null ? encodeURIComponent(seg) : ''))
+          .join('/');
+        const res = await axios.get(`${API_URL}/questions/${path}`);
         setQuestions(res.data);
         setStartTime(Date.now());
         setQuestionStartTime(Date.now());
@@ -153,7 +158,6 @@ const getResult = () => {
 
     return (
       <div className="bg-amber-50 border-l-4 border-amber-400 p-4 rounded-r-lg">
-        <Header/>
         <div className="flex items-start gap-2">
           <Lightbulb className="text-amber-600 mt-0.5 flex-shrink-0" size={18} />
           <div className="flex-1">
@@ -278,15 +282,22 @@ const getResult = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
-      {/* Header */}
-      <div className="bg-white shadow-sm border-b">
-        <div className="max-w-4xl mx-auto px-4 py-4">
-          <h1 className="text-2xl font-bold text-gray-800 flex items-center gap-2">
-            <Target className="text-blue-600" />
-            Practice Quiz: {subject} - {topic}
+      <Header />
+      {/* <div className="border-b border-gray-200/80 bg-white/90 shadow-sm backdrop-blur">
+        <div className="mx-auto w-full max-w-4xl px-4 py-4 sm:px-6">
+          {isCompetitiveClass() && (
+            <Badge className="mb-2 border-amber-200 bg-amber-50 text-amber-900 hover:bg-amber-100">
+              Competitive track · English
+            </Badge>
+          )}
+          <h1 className="flex flex-wrap items-center gap-2 text-xl font-bold text-gray-900 sm:text-2xl">
+            <Target className="h-7 w-7 shrink-0 text-edu-blue" />
+            <span>
+              Practice: {subject ? decodeURIComponent(subject) : ''} · {topic ? decodeURIComponent(topic) : ''}
+            </span>
           </h1>
         </div>
-      </div>
+      </div> */}
 
       <main className="max-w-4xl mx-auto px-4 py-8">
         {!quizCompleted ? (

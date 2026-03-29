@@ -1722,6 +1722,16 @@
         }
       ],
       "__v": 2
+    },
+    {
+      "_id": "stu_22ab3c69-a8c4-4e04-9394-70cb52b17aec",
+      "studentId": "1230",
+      "name": "sdfa",
+      "phone": "654",
+      "password": "1230",
+      "schoolId": "1865",
+      "class": "competitive",
+      "quizAttempted": []
     }
   ],
   "teachers": [

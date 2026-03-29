@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import {
   Card,
@@ -9,144 +9,135 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 
 import { 
   Play, 
   ArrowRight,
-  Sparkles
+  Sparkles,
+  Trophy,
 } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import SubjectIcon from '@/components/SubjectIcon';
-
-const subjectData = [
-  { 
-    id: 'गणित', 
-    name: 'गणित', 
-    description: 'गणना, बीजगणित, ज्यामिति आदि',
-    color: 'from-blue-500 to-cyan-500',
-    bgColor: 'bg-blue-50',
-    iconBg: 'bg-blue-100'
-  },
-  { 
-    id: 'विज्ञान', 
-    name: 'विज्ञान', 
-    description: 'भौतिकी, रसायन, जीव विज्ञान',
-    color: 'from-green-500 to-emerald-500',
-    bgColor: 'bg-green-50',
-    iconBg: 'bg-green-100'
-  },
-  { 
-    id: 'सामाजिक%20विज्ञान', 
-    name: 'सामाजिक विज्ञान', 
-    description: 'इतिहास, भूगोल, नागरिकशास्त्र',
-    color: 'from-purple-500 to-pink-500',
-    bgColor: 'bg-purple-50',
-    iconBg: 'bg-purple-100'
-  },
-  { 
-    id: 'मानसिक%20क्षमता%20परीक्षण', 
-    name: 'मानसिक क्षमता परीक्षण', 
-    description: 'तर्क, विश्लेषण, गणितीय क्षमता',
-    color: 'from-orange-500 to-red-500',
-    bgColor: 'bg-orange-50',
-    iconBg: 'bg-orange-100'
-  },
-
-  // ⭐ NEW SUBJECT ADDED FOR VOCABULARY
-  { 
-    id: 'vocab', 
-    name: 'शब्द ज्ञान (Vocabulary)', 
-    description: 'अर्थ, प्रयायवाची, विलोम, पैसेज आधारित शब्द अभ्यास',
-    color: 'from-indigo-500 to-fuchsia-500',
-    bgColor: 'bg-indigo-50',
-    iconBg: 'bg-indigo-100'
-  }
-];
-
+import { COMPETITIVE_PRACTICE_SUBJECTS, DEFAULT_PRACTICE_SUBJECTS } from '@/config/practiceSubjects';
+import { isCompetitiveClass } from '@/lib/studentClass';
 
 const StudentPractice: React.FC = () => {
+  const competitive = isCompetitiveClass();
+
+  const subjectRows = useMemo(
+    () => (competitive ? COMPETITIVE_PRACTICE_SUBJECTS : DEFAULT_PRACTICE_SUBJECTS),
+    [competitive],
+  );
+
   return (
-    <div className="flex flex-col min-h-screen bg-gradient-to-br from-indigo-50 via-white to-pink-50">
+    <div className="flex min-h-screen flex-col bg-gradient-to-br from-slate-50 via-white to-indigo-50/40">
       <Header />
       
-      <main className="flex-1 py-8">
+      <main className="flex-1 px-4 py-8 sm:py-10">
         <div className="edu-container">
           
-          {/* Hero Section */}
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-2 rounded-full text-sm font-medium mb-4">
-              <Sparkles className="h-4 w-4" />
-              Practice Makes Perfect
-            </div>
+          <div className="mx-auto mb-10 max-w-3xl text-center">
+            {competitive ? (
+              <Badge className="mb-4 border-amber-200 bg-amber-50 px-3 py-1 text-amber-900 hover:bg-amber-100">
+                <Trophy className="mr-1.5 h-3.5 w-3.5" />
+                Competitive · English medium
+              </Badge>
+            ) : (
+              <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-edu-blue to-edu-purple px-4 py-2 text-sm font-semibold text-white shadow-md">
+                <Sparkles className="h-4 w-4" />
+                Practice makes perfect
+              </div>
+            )}
 
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-              प्रश्न <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">अभ्यास</span>
+            <h1 className="mb-3 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl md:text-5xl">
+              {competitive ? (
+                <>
+                  Choose a <span className="bg-gradient-to-r from-edu-blue to-edu-purple bg-clip-text text-transparent">subject</span>
+                </>
+              ) : (
+                <>
+                  प्रश्न <span className="bg-gradient-to-r from-edu-blue to-edu-purple bg-clip-text text-transparent">अभ्यास</span>
+                </>
+              )}
             </h1>
 
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              अपना विषय चुनें और हमारे व्यापक प्रश्न बैंक से अभ्यास शुरू करें
+            <p className="text-base text-gray-600 sm:text-lg">
+              {competitive
+                ? 'Select Maths, Physics, Chemistry, or Biology. All practice content is shown in English.'
+                : 'अपना विषय चुनें और हमारे प्रश्न बैंक से अभ्यास शुरू करें'}
             </p>
           </div>
 
-          {/* Subject Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-8">
-            {subjectData.map((subject, index) => (
-              <Card 
-                key={subject.id}
-                className={`group hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border-0 shadow-lg overflow-hidden relative ${subject.bgColor}/30 backdrop-blur-sm`}
-              >
-                {/* Gradient Background */}
-                <div className={`absolute inset-0 bg-gradient-to-br ${subject.color} opacity-0 group-hover:opacity-10 transition-opacity duration-500`} />
+          <div
+            className={`grid gap-5 sm:gap-6 ${
+              competitive
+                ? 'grid-cols-1 sm:grid-cols-2 max-w-5xl mx-auto'
+                : 'grid-cols-1 md:grid-cols-2 xl:grid-cols-3'
+            }`}
+          >
+            {subjectRows.map((subject) => {
+              const IconComp = subject.icon;
+              const href = `/student/practice/${subject.id}`;
+              return (
+                <Card 
+                  key={subject.id}
+                  className={`group relative overflow-hidden border-0 shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl ${subject.bgColor}/40`}
+                >
+                  <div className={`pointer-events-none absolute inset-0 bg-gradient-to-br ${subject.color} opacity-0 transition-opacity duration-300 group-hover:opacity-[0.12]`} />
 
-                <CardHeader className="pb-4 relative z-10">
-                  <div className="flex items-start space-x-4">
-                    <div className={`${subject.iconBg} p-3 rounded-xl group-hover:scale-110 transition-transform duration-300`}>
-                      <SubjectIcon subject={subject.id} size={32} />
+                  <CardHeader className="relative z-10 pb-2">
+                    <div className="flex items-start gap-4">
+                      <div className={`flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl shadow-inner ${subject.iconBg} transition-transform duration-300 group-hover:scale-105`}>
+                        {competitive ? (
+                          <IconComp className="h-7 w-7 text-gray-800" strokeWidth={2} />
+                        ) : (
+                          <SubjectIcon subject={subject.id} size={28} />
+                        )}
+                      </div>
+                      <div className="min-w-0 flex-1 text-left">
+                        <CardTitle className="text-lg font-bold text-gray-900 transition-colors group-hover:text-gray-800 sm:text-xl">
+                          {subject.name}
+                        </CardTitle>
+                        <CardDescription className="mt-1.5 text-sm leading-relaxed text-gray-600">
+                          {subject.description}
+                        </CardDescription>
+                      </div>
                     </div>
-                    <div className="flex-1">
-                      <CardTitle className="text-lg font-bold text-gray-900 group-hover:text-gray-800 transition-colors mb-2">
-                        {subject.name}
-                      </CardTitle>
-                      <CardDescription className="text-gray-600 text-sm leading-relaxed">
-                        {subject.description}
-                      </CardDescription>
-                    </div>
-                  </div>
-                </CardHeader>
+                  </CardHeader>
 
-                <CardContent className="pb-4 relative z-10"></CardContent>
+                  <CardContent className="relative z-10 pb-2" />
 
-                <CardFooter className="pt-0 relative z-10">
-                  <Link to={`/student/practice/${subject.id}`} className="w-full">
-                    <Button 
-                      className={`w-full bg-gradient-to-r ${subject.color} hover:shadow-lg transform hover:scale-105 transition-all duration-300 text-white font-semibold py-2.5`}
-                      size="sm"
-                    >
-                      <Play className="h-4 w-4 mr-2" />
-                      अभ्यास शुरू करें
-                      <ArrowRight className="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
-                    </Button>
-                  </Link>
-                </CardFooter>
-              </Card>
-            ))}
+                  <CardFooter className="relative z-10 pt-0">
+                    <Link to={href} className="w-full">
+                      <Button 
+                        className={`w-full rounded-xl bg-gradient-to-r ${subject.color} py-5 text-base font-semibold text-black shadow-md transition-all duration-200 hover:scale-[1.02] hover:shadow-lg active:scale-[0.98]`}
+                        size="sm"
+                      >
+                        <Play className="mr-2 h-4 w-4" />
+                        {competitive ? 'Start practice' : 'अभ्यास शुरू करें'}
+                        <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                      </Button>
+                    </Link>
+                  </CardFooter>
+                </Card>
+              );
+            })}
           </div>
 
-          {/* Call to Action */}
-          <div className="mt-16 text-center">
-            <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-8 text-white">
-              <div className="max-w-2xl mx-auto">
-                <h2 className="text-2xl md:text-3xl font-bold mb-4">
+          {!competitive && (
+            <div className="mt-14 overflow-hidden rounded-2xl bg-gradient-to-r from-edu-blue to-edu-purple p-8 text-center text-white shadow-xl sm:p-10">
+              <div className="mx-auto max-w-2xl">
+                <h2 className="mb-3 text-2xl font-bold sm:text-3xl">
                   क्या आप अपने प्रदर्शन को बेहतर बनाने के लिए तैयार हैं?
                 </h2>
-                <p className="text-blue-100 mb-6">
-                  आपकी सफलता के लिए तैयार किए गए हमारे व्यापक प्रश्न बैंक से अभ्यास शुरू करें
+                <p className="text-blue-100">
+                  व्यापक प्रश्न बैंक से अभ्यास करें और परीक्षा के लिए आत्मविश्वास बनाएं।
                 </p>
               </div>
             </div>
-          </div>
-
+          )}
         </div>
       </main>
       

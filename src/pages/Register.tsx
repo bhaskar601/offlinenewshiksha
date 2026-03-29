@@ -120,8 +120,13 @@ const Register: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4 py-8">
-      <Header/>
+    // <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4 py-8">
+  <div className="min-h-screen bg-gray-50">
+    <Header />
+
+    <div className="flex items-center justify-center px-4 py-8">
+      {/* <Card className="w-full max-w-md mx-auto"></Card> */}
+      {/* <Header/> */}
       <Card className="w-full max-w-md mx-auto">
         {!isAdminVerified ? (
           <>
@@ -193,11 +198,22 @@ const Register: React.FC = () => {
                           <SelectValue placeholder="Select Class" />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="6">Class 6</SelectItem>
-                          <SelectItem value="7">Class 7</SelectItem>
-                          <SelectItem value="8">Class 8</SelectItem>
-                          <SelectItem value="NMMS">NMMS</SelectItem>
-                        </SelectContent>
+  {/* <SelectItem value="6" className="bg-blue-600 text-white hover:bg-white hover:text-blue-600">
+    Class 6
+  </SelectItem>
+  <SelectItem value="7" className="bg-blue-600 text-white hover:bg-white hover:text-blue-600">
+    Class 7
+  </SelectItem>
+  <SelectItem value="8" className="bg-blue-600 text-white hover:bg-white hover:text-blue-600">
+    Class 8
+  </SelectItem> */}
+  <SelectItem value="NMMS" className="bg-blue-600 text-white hover:bg-white hover:text-blue-600">
+    NMMS
+  </SelectItem>
+  <SelectItem value="competitive" className="bg-blue-600 text-white hover:bg-white hover:text-blue-600">
+    Competitive (English)
+  </SelectItem>
+</SelectContent>
                       </Select>
                     </div>
                     <InputBlock label="Password" value={password} setValue={setPassword} type="password" />
@@ -227,6 +243,7 @@ const Register: React.FC = () => {
         )}
       </Card>
     </div>
+  </div>
   );
 };
 

@@ -115,13 +115,11 @@ const AttemptQuiz: React.FC = () => {
     }
   };
 
-  if (!quiz) {
-    return (
-      <div className="text-center mt-20 text-lg font-semibold">
-        Loading quiz...
-      </div>
-    );
-  }
+ if (!quiz) {
+  navigate("/student");
+  alert("Quiz id not found.");
+  return null;
+}
 
   return (
     <>

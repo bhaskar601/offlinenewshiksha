@@ -194,14 +194,14 @@ const QuizDetails = () => {
       <main className="flex-1 py-8 bg-gray-50">
         <div className="edu-container">
           {/* Back Button */}
-          <div className="mb-6">
+          {/* <div className="mb-6">
             <Link to="/teacher/dashboard">
               <Button variant="outline" size="sm">
                 <ArrowLeft className="h-4 w-4 mr-2" />
                 Back to Dashboard
               </Button>
             </Link>
-          </div>
+          </div> */}
 
           {/* Quiz Header */}
           <Card className="mb-8 border-l-4 border-l-edu-blue">
@@ -223,10 +223,10 @@ const QuizDetails = () => {
                     <Share2 className="h-4 w-4 mr-2" />
                     Share Quiz ID
                   </Button>
-                  <Button variant="outline" size="sm">
+                  {/* <Button variant="outline" size="sm">
                     <Edit className="h-4 w-4 mr-2" />
                     Edit Quiz
-                  </Button>
+                  </Button> */}
                 </div>
               </div>
             </CardHeader>
