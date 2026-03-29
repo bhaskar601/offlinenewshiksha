@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Header from '@/components/Header';
+import { getApiBaseUrl } from "@/lib/apiBase";
+
+const API_URL = getApiBaseUrl();
 
 interface Question {
   _id: string;
@@ -30,7 +33,7 @@ const VocabularyQuizPage: React.FC = () => {
   useEffect(() => {
     const fetchChapters = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/vocab");
+        const res = await axios.get(`${API_URL}/vocab`);
         setChapters(res.data);
       } catch (err) {
         console.error("Error fetching chapters:", err);
@@ -42,7 +45,7 @@ const VocabularyQuizPage: React.FC = () => {
   const handleSelectChapter = async (id: string) => {
     try {
       setLoading(true);
-      const res = await axios.get(`http://localhost:5000/vocab/${id}`);
+      const res = await axios.get(`${API_URL}/vocab/${id}`);
       setSelectedChapter(res.data);
       setShowPassage(true);
       setLoading(false);
@@ -84,7 +87,7 @@ const VocabularyQuizPage: React.FC = () => {
       setCurrentQuestionIndex((prev) => prev + 1);
     } else {
       try {
-        const res = await axios.post("http://localhost:5000/vocab/evaluate", {
+        const res = await axios.post(`${API_URL}/vocab/evaluate`, {
           chapterId: selectedChapter._id,
           answers,
         });

@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { ShieldAlert } from 'lucide-react';
-const API_URL = import.meta.env.VITE_API_URL;
+
 const NotAuthorized: React.FC = () => {
   return (
     <div className="flex flex-col min-h-screen">

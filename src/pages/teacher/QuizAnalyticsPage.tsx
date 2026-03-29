@@ -1,9 +1,8 @@
-
-const API_URL = import.meta.env.VITE_API_URL;
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import Header from '@/components/Header';
+import { getApiBaseUrl } from "@/lib/apiBase";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import { 
   BarChart, 
@@ -33,6 +32,8 @@ import {
   BarChart3,
   PieChart as PieChartIcon
 } from "lucide-react";
+
+const API_URL = getApiBaseUrl();
 
 export default function QuizAnalyticsPage() {
   const { quizId } = useParams();

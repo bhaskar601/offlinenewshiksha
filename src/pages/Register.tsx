@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useToast } from '@/components/ui/use-toast';
-const API_URL = import.meta.env.VITE_API_URL;
 import Header from '@/components/Header';
+import { getApiBaseUrl } from "@/lib/apiBase";
 import {
   Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle,
 } from '@/components/ui/card';
@@ -16,6 +16,8 @@ import {
 } from '@/components/ui/select';
 import { BookOpen } from 'lucide-react';
 import axios from 'axios';
+
+const API_URL = getApiBaseUrl();
 
 const Register: React.FC = () => {
   const [isAdminVerified, setIsAdminVerified] = useState(false);

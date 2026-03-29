@@ -2,8 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Cookies from "js-cookie";
 import axios from "axios";
-const API_URL = import.meta.env.VITE_API_URL;
 import Header from '@/components/Header';
+import { getApiBaseUrl } from "@/lib/apiBase";
+
+const API_URL = getApiBaseUrl();
+
 interface Question {
   _id: string;
   question: string;

@@ -3,7 +3,7 @@ import Cookies from "js-cookie";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import Header from '@/components/Header';
-const API_URL = import.meta.env.VITE_API_URL;
+import { getApiBaseUrl } from "@/lib/apiBase";
 import {
   Card,
   CardContent,
@@ -17,6 +17,8 @@ import { Button } from "@/components/ui/button";
 import Footer from "@/components/Footer";
 import { BookOpen, ListChecks, Users, Lock } from "lucide-react";
 import SubjectIcon from "@/components/SubjectIcon";
+
+const API_URL = getApiBaseUrl();
 
 const StudentDashboard: React.FC = () => {
   const navigate = useNavigate();

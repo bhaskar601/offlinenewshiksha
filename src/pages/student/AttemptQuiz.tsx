@@ -3,7 +3,10 @@ import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Cookies from "js-cookie";
 import Header from "@/components/Header";
-const API_URL = import.meta.env.VITE_API_URL;
+import { getApiBaseUrl } from "@/lib/apiBase";
+
+const API_URL = getApiBaseUrl();
+
 interface Question {
   _id: string;
   question: string;

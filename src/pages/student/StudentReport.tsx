@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-const API_URL = import.meta.env.VITE_API_URL;
 import Header from '@/components/Header';
+import { getApiBaseUrl } from "@/lib/apiBase";
+
+const API_URL = getApiBaseUrl();
+
 export default function StudentReport() {
   const { id } = useParams();
   const [student, setStudent] = useState(null);

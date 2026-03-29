@@ -8,7 +8,7 @@
     "build": "vite build",
     "export:data": "node backend/export-mongodb.cjs",
     "electron": "electron .",
-    "dist": "npm run export:data && npm run build && electron-builder"
+    "dist": "npm run build && electron-builder"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.2.2",

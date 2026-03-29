@@ -1814,6 +1814,16 @@
       ],
       "questionAdded": [],
       "__v": 1
+    },
+    {
+      "_id": "tch_5b7f6d65-1e53-4284-8062-ac6459090e6f",
+      "teacherId": "11",
+      "name": "Rahul Ratha",
+      "phone": "98765430",
+      "schoolId": "6565",
+      "password": "11",
+      "quizzesCreated": [],
+      "questionAdded": []
     }
   ],
   "questions": [
@@ -34766,6 +34776,40 @@
         "mode": "standard"
       },
       "__v": 0
+    },
+    {
+      "_id": "q_b1dc23f7-1278-4af2-bdc1-23f0f43a60ce",
+      "subject": "विज्ञान",
+      "class": "8",
+      "topic": "बल और दाब",
+      "question": "बल का SI मात्रक क्या है?",
+      "options": [
+        "न्यूटन",
+        "पास्कल",
+        "जूल",
+        "वाट"
+      ],
+      "correctAnswer": "न्यूटन",
+      "hint": {
+        "text": ""
+      }
+    },
+    {
+      "_id": "q_b3a9d99d-e5a6-4bf4-94dd-3c597f14eee8",
+      "subject": "Physics",
+      "class": "competitive",
+      "topic": "Laws of Motion",
+      "question": "What is the SI unit of force?",
+      "options": [
+        "Newton",
+        "Joule",
+        "Pascal",
+        "Watt"
+      ],
+      "correctAnswer": "Newton",
+      "hint": {
+        "text": ""
+      }
     }
   ],
   "quizzes": [
@@ -35926,5 +35970,6 @@
       ]
     }
   ],
+  "schools": [],
   "vocabularychapters": []
 }

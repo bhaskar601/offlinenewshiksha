@@ -8,7 +8,10 @@ import { Badge } from "@/components/ui/badge";
 import { BookOpen, Play, AlertCircle, Loader2 } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-const API_URL = import.meta.env.VITE_API_URL;
+import { getApiBaseUrl } from "@/lib/apiBase";
+
+const API_URL = getApiBaseUrl();
+
 const SubjectTopics: React.FC = () => {
   const { subject } = useParams<{ subject: string }>();
   const [topics, setTopics] = useState<string[]>([]);

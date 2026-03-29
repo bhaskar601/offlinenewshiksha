@@ -2,7 +2,10 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { useToast } from "@/components/ui/use-toast"; // adjust path if needed
-const API_URL = import.meta.env.VITE_API_URL;
+import { getApiBaseUrl } from "@/lib/apiBase";
+
+const API_URL = getApiBaseUrl();
+
 export default function AddMyQuestion() {
   const [formData, setFormData] = useState({
     subject: "",

@@ -6,7 +6,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { useAuth } from '@/contexts/AuthContext';
 import Cookies from 'js-cookie';
-const API_URL= import.meta.env.VITE_API_URL;
+import { getApiBaseUrl } from "@/lib/apiBase";
 import { 
   BookOpen, 
   ListChecks, 
@@ -16,6 +16,8 @@ import {
   Layers
 } from 'lucide-react';
 import SubjectIcon from '@/components/SubjectIcon';
+
+const API_URL = getApiBaseUrl();
 
 const TeacherDashboard: React.FC = () => {
   const { user } = useAuth();

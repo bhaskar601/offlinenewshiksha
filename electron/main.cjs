@@ -2,6 +2,7 @@ const { app, BrowserWindow } = require("electron");
 const path = require("path");
 const fs = require("fs");
 const crypto = require("crypto");
+const os = require("os");
 
 let backendServer = null;
 
@@ -11,6 +12,23 @@ function logMain(message) {
     fs.appendFileSync(logFile, `[${new Date().toISOString()}] ${message}\n`, "utf-8");
   } catch (_err) {
     // ignore logging failures
+  }
+}
+
+function logLanUrls(port = 5000) {
+  const lines = [`LAN / browser clients: open http://<this-pc-ip>:${port}/`];
+  const nets = os.networkInterfaces();
+  for (const name of Object.keys(nets)) {
+    for (const net of nets[name] || []) {
+      const v4 = net.family === "IPv4" || net.family === 4;
+      if (v4 && !net.internal) {
+        lines.push(`  http://${net.address}:${port}/`);
+      }
+    }
+  }
+  for (const line of lines) {
+    console.log(line);
+    logMain(line);
   }
 }
 
@@ -82,6 +100,7 @@ function startBackend() {
   return backend.startBackendServer().then((server) => {
     backendServer = server;
     logMain("Backend server started");
+    logLanUrls(5000);
     return server;
   });
 }
@@ -110,7 +129,7 @@ function createWindow() {
   });
 
   if (app.isPackaged) {
-    win.loadFile(path.join(__dirname, "../dist/index.html"));
+    win.loadURL("http://127.0.0.1:5000/");
   } else {
     win.loadURL("http://localhost:8080");
   }

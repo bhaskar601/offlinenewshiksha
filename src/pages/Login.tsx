@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-const API_URL = import.meta.env.VITE_API_URL;
 import Header from '@/components/Header';
+import { getApiBaseUrl } from "@/lib/apiBase";
 import {
   Card,
   CardContent,
@@ -17,6 +17,8 @@ import { BookOpen } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 import axios from "axios";
 import Cookies from "js-cookie";
+
+const API_URL = getApiBaseUrl();
 
 const Login: React.FC = () => {
   const [role, setRole] = useState<"student" | "teacher">("student");

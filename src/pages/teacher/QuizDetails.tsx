@@ -6,7 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import SubjectIcon from '@/components/SubjectIcon';
-const API_URL = import.meta.env.VITE_API_URL;
+import { getApiBaseUrl } from "@/lib/apiBase";
 import { 
   ArrowLeft, 
   BookOpen, 
@@ -24,6 +24,8 @@ import {
   TrendingUp,
   TrendingDown
 } from 'lucide-react';
+
+const API_URL = getApiBaseUrl();
 
 const QuizDetails = () => {
   const { quizId } = useParams();

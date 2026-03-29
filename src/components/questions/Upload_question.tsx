@@ -1,5 +1,8 @@
 import { useState } from "react";
-const API_URL = import.meta.env.VITE_API_URL;
+import { getApiBaseUrl } from "@/lib/apiBase";
+
+const API_URL = getApiBaseUrl();
+
 export default function SimpleQuestionForm() {
   const initialFormState = {
     subject: "",
