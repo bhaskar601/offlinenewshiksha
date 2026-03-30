@@ -14,8 +14,9 @@ import {
 import {
   Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
 } from '@/components/ui/select';
-import { BookOpen } from 'lucide-react';
+import { BookOpen, Cloud } from 'lucide-react';
 import axios from 'axios';
+import { enqueueEntity, syncToServer } from '@/services/syncService';
 
 const API_URL = getApiBaseUrl();
 
@@ -35,6 +36,7 @@ const Register: React.FC = () => {
   const [instituteId, setInstituteId] = useState('');
   const [classLevel, setClassLevel] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [syncing, setSyncing] = useState(false);
 
   const handleAdminLogin = (e: React.FormEvent) => {
     e.preventDefault();
@@ -100,6 +102,17 @@ const Register: React.FC = () => {
         description: `${role === 'student' ? 'Student' : 'Teacher'} ${id} created successfully.`,
       });
 
+      // Offline-first cloud sync queue (students only, backward compatible with existing backend)
+      if (role === 'student') {
+        enqueueEntity('students', {
+          studentId: id,
+          name,
+          phone,
+          schoolId: instituteId,
+          class: classLevel,
+        });
+      }
+
       // Clear form
       setName('');
       setId('');
@@ -116,6 +129,26 @@ const Register: React.FC = () => {
       });
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const handleSync = async () => {
+    if (syncing) return;
+    try {
+      setSyncing(true);
+      const result = await syncToServer();
+      toast({
+        title: "Sync complete",
+        description: result.synced ? `Synced ${result.synced} record(s) to cloud.` : "Nothing to sync.",
+      });
+    } catch (err: any) {
+      toast({
+        title: "Sync failed",
+        description: err?.message || "Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setSyncing(false);
     }
   };
 
@@ -178,7 +211,8 @@ const Register: React.FC = () => {
               </CardDescription>
             </CardHeader>
 
-            <form onSubmit={handleRegisterSubmit}>
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-start">
+              <form onSubmit={handleRegisterSubmit} className="flex-1 min-w-0">
               <Tabs defaultValue="student" className="w-full" onValueChange={(value) => setRole(value as 'student' | 'teacher')}>
                 <TabsList className="grid w-full grid-cols-2 mb-4">
                   <TabsTrigger value="student">Student</TabsTrigger>
@@ -238,7 +272,30 @@ const Register: React.FC = () => {
                   {isLoading ? 'Registering...' : 'Register'}
                 </Button>
               </CardFooter>
-            </form>
+              </form>
+              <div className="w-full sm:w-56">
+                <div className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm">
+                  <div className="flex items-center gap-2">
+                    <Cloud className="h-4 w-4 text-edu-blue" />
+                    <p className="font-semibold text-gray-900">Cloud Sync</p>
+                  </div>
+                  <p className="mt-2 text-sm text-gray-600">
+                    Sync queued changes when internet is available.
+                  </p>
+                  <div className="mt-4">
+                    <Button
+                      type="button"
+                      className="w-full rounded-xl"
+                      variant="outline"
+                      onClick={handleSync}
+                      disabled={syncing}
+                    >
+                      {syncing ? "Syncing..." : "Sync Data"}
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </div>
           </>
         )}
       </Card>

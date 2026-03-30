@@ -4,6 +4,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import Header from "@/components/Header";
 import { getApiBaseUrl } from "@/lib/apiBase";
+import { enqueueEntity } from "@/services/syncService";
 
 const API_URL = getApiBaseUrl();
 
@@ -33,6 +34,8 @@ const AttemptQuiz: React.FC = () => {
   const [quiz, setQuiz] = useState<Quiz | null>(null);
   const [answers, setAnswers] = useState<{ [key: string]: string }>({});
   const [student, setStudent] = useState<Student | null>(null);
+  const [loadingQuiz, setLoadingQuiz] = useState(true);
+  const [quizError, setQuizError] = useState<string | null>(null);
 
   useEffect(() => {
     const studentData = localStorage.getItem("student");
@@ -49,10 +52,16 @@ const AttemptQuiz: React.FC = () => {
   useEffect(() => {
     const fetchQuiz = async () => {
       try {
+        setLoadingQuiz(true);
+        setQuizError(null);
         const res = await axios.get(`${API_URL}/quizzes/${id}`);
         setQuiz(res.data);
       } catch (err) {
         console.error("Failed to fetch quiz:", err);
+        setQuiz(null);
+        setQuizError("Quiz not found (or server unreachable).");
+      } finally {
+        setLoadingQuiz(false);
       }
     };
     fetchQuiz();
@@ -105,6 +114,14 @@ const AttemptQuiz: React.FC = () => {
 
       await axios.post(`${API_URL}/reports/submit-report`, reportPayload);
 
+      // Offline-first cloud sync queue (attempts). Keep payload small + backend-agnostic.
+      enqueueEntity("attempts", {
+        quizId: quiz.quizId,
+        studentId: student.studentId,
+        answers: answerList,
+        attemptedAt: new Date().toISOString(),
+      });
+
       Cookies.set("quizResult", JSON.stringify(attemptResponse.data), { expires: 7 });
 
       alert("Quiz submitted successfully!");
@@ -115,11 +132,51 @@ const AttemptQuiz: React.FC = () => {
     }
   };
 
- if (!quiz) {
-  navigate("/student");
-  alert("Quiz id not found.");
-  return null;
-}
+  if (loadingQuiz) {
+    return (
+      <>
+        <Header />
+        <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-blue-600 mx-auto mb-3"></div>
+            <p className="text-gray-700 font-medium">Loading quiz…</p>
+          </div>
+        </div>
+      </>
+    );
+  }
+
+  if (!quiz) {
+    return (
+      <>
+        <Header />
+        <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
+          <div className="max-w-md w-full bg-white border rounded-xl p-6 shadow">
+            <h2 className="text-xl font-bold text-gray-900 mb-2">Quiz not found</h2>
+            <p className="text-gray-600 mb-4">
+              {quizError || "This quiz ID does not exist."}
+            </p>
+            <div className="flex gap-3">
+              <button
+                type="button"
+                onClick={() => navigate(-1)}
+                className="px-4 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50"
+              >
+                Go back
+              </button>
+              <button
+                type="button"
+                onClick={() => navigate("/student")}
+                className="px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700"
+              >
+                Dashboard
+              </button>
+            </div>
+          </div>
+        </div>
+      </>
+    );
+  }
 
   return (
     <>

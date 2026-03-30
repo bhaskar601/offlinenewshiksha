@@ -5,6 +5,7 @@ import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
 import Header from '@/components/Header';
 import { getApiBaseUrl } from "@/lib/apiBase";
+import { enqueueEntity } from "@/services/syncService";
 
 const API_URL = getApiBaseUrl();
 
@@ -168,6 +169,13 @@ export default function CreateQuiz() {
 
       // Update quiz with all question IDs
       await axios.put(`${API_URL}/quizzes/${createdQuiz._id}`, {
+        questions: finalQuestionIds,
+      });
+
+      // Offline-first cloud sync queue (quizzes)
+      enqueueEntity("quizzes", {
+        quizId: quizId.trim(),
+        teacherId,
         questions: finalQuestionIds,
       });
 

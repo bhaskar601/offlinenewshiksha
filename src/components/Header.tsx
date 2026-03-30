@@ -3,19 +3,44 @@ import React from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/contexts/AuthContext';
+import { useToast } from '@/components/ui/use-toast';
 import { 
   Home,
   BookOpen, 
   LogOut,
   ArrowLeft,
+  Cloud,
 } from 'lucide-react';
+import { syncToServer } from '@/services/syncService';
 
 const Header: React.FC = () => {
   const { user, logout, isAuthenticated } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
+  const { toast } = useToast();
+  const [syncing, setSyncing] = React.useState(false);
 
   const isHome = location.pathname === '/' || location.pathname === '';
+
+  const handleSync = React.useCallback(async () => {
+    if (syncing) return;
+    try {
+      setSyncing(true);
+      const result = await syncToServer();
+      toast({
+        title: "Sync complete",
+        description: result.synced ? `Synced ${result.synced} record(s) to cloud.` : "Nothing to sync.",
+      });
+    } catch (err: any) {
+      toast({
+        title: "Sync failed",
+        description: err?.message || "Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setSyncing(false);
+    }
+  }, [syncing, toast]);
 
   return (
     <header className="sticky top-0 z-50 border-b border-gray-200/80 bg-white/95 shadow-sm backdrop-blur supports-[backdrop-filter]:bg-white/80">
@@ -48,6 +73,16 @@ const Header: React.FC = () => {
         <div className="flex shrink-0 items-center gap-1 sm:gap-3">
           {isAuthenticated ? (
             <>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={handleSync}
+                disabled={syncing}
+                className="hidden sm:inline-flex border-gray-300"
+              >
+                <Cloud className="mr-2 h-4 w-4" />
+                {syncing ? "Syncing..." : "Sync Data"}
+              </Button>
               <Link to={user?.role === 'student' ? '/student' : '/teacher'}>
                 <Button variant="ghost" size="sm" className="hidden sm:inline-flex">
                   <Home className="mr-2 h-4 w-4" />

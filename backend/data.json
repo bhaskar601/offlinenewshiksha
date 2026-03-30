@@ -1732,6 +1732,88 @@
       "schoolId": "1865",
       "class": "competitive",
       "quizAttempted": []
+    },
+    {
+      "_id": "stu_2ae561b2-9c15-4005-ac70-c46a23690a33",
+      "studentId": "100",
+      "name": "sdfa",
+      "phone": "56",
+      "password": "100",
+      "schoolId": "564",
+      "class": "NMMS",
+      "quizAttempted": [
+        {
+          "quizId": "testing",
+          "answers": [
+            {
+              "_id": "ans_a3ff5567-6721-48d2-9c2d-3f8a91b8b2f8",
+              "questionId": "682d9904febd1d6decef0a6b",
+              "selectedAnswer": "मिट्टी",
+              "isCorrect": false
+            },
+            {
+              "_id": "ans_db2c561a-1470-4a32-b9c5-cf60932c1eea",
+              "questionId": "682d9a920819fd47a02b698a",
+              "selectedAnswer": "5 वर्ष",
+              "isCorrect": true
+            },
+            {
+              "_id": "ans_ac7fe5e4-3d0c-4a66-a1a1-92ee9f823e20",
+              "questionId": "683005af2af3844df779da7f",
+              "selectedAnswer": "4.5 घंटे",
+              "isCorrect": false
+            },
+            {
+              "_id": "ans_c510eb05-0a40-4c6f-a5c7-ee6a69e6ee6e",
+              "questionId": "683007162af3844df779da85",
+              "selectedAnswer": "6 मिनट",
+              "isCorrect": false
+            },
+            {
+              "_id": "ans_f7cf1414-dd3f-4bb5-bfa8-1cd300c55c4b",
+              "questionId": "683008cb2af3844df779da8b",
+              "selectedAnswer": "Indicators are only suggestions; actual right-of-way follows road rules.",
+              "isCorrect": true
+            },
+            {
+              "_id": "ans_a8d0fe4b-0275-4649-9d0a-722eafe08e41",
+              "questionId": "68303240ade550dd4b9f874f",
+              "selectedAnswer": "9:45",
+              "isCorrect": false
+            },
+            {
+              "_id": "ans_6ae229e6-c444-4d46-859c-d871f553f2b6",
+              "questionId": "683188432d0cc1475176cb95",
+              "selectedAnswer": "13",
+              "isCorrect": true
+            },
+            {
+              "_id": "ans_e2044955-2437-47a1-9376-a0b0bd648bd5",
+              "questionId": "68356309608e14cb678fd2d5",
+              "selectedAnswer": "10:45 AM",
+              "isCorrect": false
+            },
+            {
+              "_id": "ans_8af3dea5-b6f4-4afc-b2b8-f2e20434f4d8",
+              "questionId": "6837450423ce8ad602ebcf2d",
+              "selectedAnswer": "15.5 सेकंड",
+              "isCorrect": false
+            },
+            {
+              "_id": "ans_cad3bf36-097b-416f-8e03-0ef00bd7bedb",
+              "questionId": "68375d1723ce8ad602ebd028",
+              "selectedAnswer": "3",
+              "isCorrect": false
+            }
+          ],
+          "score": {
+            "correct": 3,
+            "incorrect": 7,
+            "unattempted": 6
+          },
+          "attemptedAt": "2026-03-30T16:39:23.624Z"
+        }
+      ]
     }
   ],
   "teachers": [
@@ -1807,7 +1889,8 @@
         "683994463e1f411c10d0ecc9",
         "683b05ed68047f4f349b385d",
         "68419c8daf2d2e77644ac8b4",
-        "68419f74af2d2e77644acae4"
+        "68419f74af2d2e77644acae4",
+        "quiz_f60fe5a0-d46d-4026-b409-3fed29643e1b"
       ],
       "questionAdded": [],
       "__v": 7
@@ -35076,9 +35159,72 @@
       ],
       "attemptedBy": [
         "1234",
-        "123"
+        "123",
+        "100"
       ],
-      "__v": 2
+      "__v": 2,
+      "questionStats": [
+        {
+          "questionId": "682d9904febd1d6decef0a6b",
+          "correctCount": 0,
+          "incorrectCount": 1,
+          "unattemptedCount": 0
+        },
+        {
+          "questionId": "682d9a920819fd47a02b698a",
+          "correctCount": 1,
+          "incorrectCount": 0,
+          "unattemptedCount": 0
+        },
+        {
+          "questionId": "683005af2af3844df779da7f",
+          "correctCount": 0,
+          "incorrectCount": 1,
+          "unattemptedCount": 0
+        },
+        {
+          "questionId": "683007162af3844df779da85",
+          "correctCount": 0,
+          "incorrectCount": 1,
+          "unattemptedCount": 0
+        },
+        {
+          "questionId": "683008cb2af3844df779da8b",
+          "correctCount": 1,
+          "incorrectCount": 0,
+          "unattemptedCount": 0
+        },
+        {
+          "questionId": "68303240ade550dd4b9f874f",
+          "correctCount": 0,
+          "incorrectCount": 1,
+          "unattemptedCount": 0
+        },
+        {
+          "questionId": "683188432d0cc1475176cb95",
+          "correctCount": 1,
+          "incorrectCount": 0,
+          "unattemptedCount": 0
+        },
+        {
+          "questionId": "68356309608e14cb678fd2d5",
+          "correctCount": 0,
+          "incorrectCount": 1,
+          "unattemptedCount": 0
+        },
+        {
+          "questionId": "6837450423ce8ad602ebcf2d",
+          "correctCount": 0,
+          "incorrectCount": 1,
+          "unattemptedCount": 0
+        },
+        {
+          "questionId": "68375d1723ce8ad602ebd028",
+          "correctCount": 0,
+          "incorrectCount": 1,
+          "unattemptedCount": 0
+        }
+      ]
     },
     {
       "_id": "683d411b7feb81445ea9cd87",
@@ -35262,6 +35408,18 @@
         "1234"
       ],
       "__v": 3
+    },
+    {
+      "_id": "quiz_f60fe5a0-d46d-4026-b409-3fed29643e1b",
+      "teacherId": "1234",
+      "quizId": "9876",
+      "questions": [
+        "682d9904febd1d6decef0a6b",
+        "682d9904febd1d6decef0a6d",
+        "682d9904febd1d6decef0a6f",
+        "682d9a920819fd47a02b698a"
+      ],
+      "attemptedBy": []
     }
   ],
   "reports": [
@@ -35976,6 +36134,66 @@
           "incorrectCount": 1,
           "unattemptedCount": 0,
           "_id": "68419f9eaf2d2e77644acc12"
+        }
+      ]
+    },
+    {
+      "_id": "srep_19b211bb-c5a4-42f6-b757-733f130e847c",
+      "quizId": "testing",
+      "studentId": "100",
+      "correct": 3,
+      "incorrect": 7,
+      "unattempted": 0,
+      "answers": [
+        {
+          "questionId": "682d9904febd1d6decef0a6b",
+          "selectedAnswer": "मिट्टी",
+          "isCorrect": false
+        },
+        {
+          "questionId": "682d9a920819fd47a02b698a",
+          "selectedAnswer": "5 वर्ष",
+          "isCorrect": true
+        },
+        {
+          "questionId": "683005af2af3844df779da7f",
+          "selectedAnswer": "4.5 घंटे",
+          "isCorrect": false
+        },
+        {
+          "questionId": "683007162af3844df779da85",
+          "selectedAnswer": "6 मिनट",
+          "isCorrect": false
+        },
+        {
+          "questionId": "683008cb2af3844df779da8b",
+          "selectedAnswer": "Indicators are only suggestions; actual right-of-way follows road rules.",
+          "isCorrect": true
+        },
+        {
+          "questionId": "68303240ade550dd4b9f874f",
+          "selectedAnswer": "9:45",
+          "isCorrect": false
+        },
+        {
+          "questionId": "683188432d0cc1475176cb95",
+          "selectedAnswer": "13",
+          "isCorrect": true
+        },
+        {
+          "questionId": "68356309608e14cb678fd2d5",
+          "selectedAnswer": "10:45 AM",
+          "isCorrect": false
+        },
+        {
+          "questionId": "6837450423ce8ad602ebcf2d",
+          "selectedAnswer": "15.5 सेकंड",
+          "isCorrect": false
+        },
+        {
+          "questionId": "68375d1723ce8ad602ebd028",
+          "selectedAnswer": "3",
+          "isCorrect": false
         }
       ]
     }
