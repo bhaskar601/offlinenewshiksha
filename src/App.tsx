@@ -36,6 +36,7 @@ import Analytics from "./pages/teacher/Analytics";
 import AddMyQuestion from "./pages/teacher/AddMyquestion";
 import QuizDetails from "./pages/teacher/QuizDetails";
 import QuizAnalyticsPage from "./pages/teacher/QuizAnalyticsPage";
+import SyncedDataAdminPage from "./pages/admin/SyncedData";
 
 //Quiz
 import AttemptQuiz from "./pages/student/AttemptQuiz";
@@ -77,6 +78,8 @@ const AppRoutes = () => {
       <Route path="/teacher/quiz-details/:quizId" element={<QuizDetails />} />
       <Route path="/teacher/quiz-analytics/:quizId" element={<QuizAnalyticsPage />} />
 
+      {/* Admin */}
+      <Route path="/admin/synced-data" element={<SyncedDataAdminPage />} />
 
       {/* 404 - Not Found */}
       <Route path="*" element={<NotFound />} />

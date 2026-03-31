@@ -34,15 +34,15 @@ const TeacherDashboard: React.FC = () => {
   // Fetch quizzes created by the teacher
   useEffect(() => {
     const fetchTeacherQuizzes = async () => {
-      const teacherCookie = Cookies.get("teacher");
-      if (!teacherCookie) {
+      const teacherAuthRaw = Cookies.get("teacher") || localStorage.getItem("teacher");
+      if (!teacherAuthRaw) {
         setError('Teacher cookie not found');
         setLoading(false);
         return;
       }
 
       try {
-        const parsed = JSON.parse(teacherCookie);
+        const parsed = JSON.parse(teacherAuthRaw);
         const teacherInfo = parsed.teacher;
         
         // Extract all teacher information from cookie

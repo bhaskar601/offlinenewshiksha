@@ -40,9 +40,9 @@ export default function CreateQuiz() {
   const { toast } = useToast();
 
   useEffect(() => {
-    const teacherCookie = Cookies.get("teacher");
-    if (teacherCookie) {
-      const parsed = JSON.parse(teacherCookie);
+    const teacherAuthRaw = Cookies.get("teacher") || localStorage.getItem("teacher");
+    if (teacherAuthRaw) {
+      const parsed = JSON.parse(teacherAuthRaw);
       setTeacherId(parsed.teacher.teacherId);
 
       axios
@@ -167,6 +167,29 @@ export default function CreateQuiz() {
       const realSelected = selectedQuestions.filter((id) => !id.startsWith("custom-"));
       const finalQuestionIds = [...realSelected, ...uploadedCustomIds];
 
+      const selectedExistingQuestionObjects = questions
+        .filter((q) => realSelected.includes(q._id))
+        .map((q) => ({
+          questionId: q._id,
+          question: q.question,
+          questionImage: q.questionImage || "",
+          options: q.options || [],
+          subject: q.subject,
+          class: q.class,
+          topic: q.topic,
+        }));
+
+      const uploadedCustomQuestionObjects = customQuestions.map((q, idx) => ({
+        questionId: uploadedCustomIds[idx] || null,
+        question: q.question,
+        questionImage: q.questionImage || "",
+        options: q.options || [],
+        correctAnswer: q.correctAnswer || "",
+        subject: "custom",
+        class: "custom",
+        topic: "custom",
+      }));
+
       // Update quiz with all question IDs
       await axios.put(`${API_URL}/quizzes/${createdQuiz._id}`, {
         questions: finalQuestionIds,
@@ -176,7 +199,8 @@ export default function CreateQuiz() {
       enqueueEntity("quizzes", {
         quizId: quizId.trim(),
         teacherId,
-        questions: finalQuestionIds,
+        questions: [...selectedExistingQuestionObjects, ...uploadedCustomQuestionObjects],
+        questionIds: finalQuestionIds,
       });
 
       toast({

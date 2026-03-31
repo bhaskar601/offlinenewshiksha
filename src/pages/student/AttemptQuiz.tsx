@@ -120,6 +120,7 @@ const AttemptQuiz: React.FC = () => {
         studentId: student.studentId,
         answers: answerList,
         attemptedAt: new Date().toISOString(),
+        report: attemptResponse.data,
       });
 
       Cookies.set("quizResult", JSON.stringify(attemptResponse.data), { expires: 7 });

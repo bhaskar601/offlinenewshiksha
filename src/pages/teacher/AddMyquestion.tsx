@@ -23,10 +23,10 @@ export default function AddMyQuestion() {
 
   useEffect(() => {
     console.log("hello")
-    const teacherCookie = Cookies.get("teacher");
-    console.log(teacherCookie);
-    if (teacherCookie) {
-      const parsed = JSON.parse(teacherCookie);
+    const teacherAuthRaw = Cookies.get("teacher") || localStorage.getItem("teacher");
+    console.log(teacherAuthRaw);
+    if (teacherAuthRaw) {
+      const parsed = JSON.parse(teacherAuthRaw);
       setTeacherId(parsed.teacher.teacherId);
       console.log(teacherId);
     }
@@ -51,7 +51,7 @@ export default function AddMyQuestion() {
     if (!teacherId) {
       toast({
         title: "Error",
-        description: "Teacher ID not found in cookies",
+        description: "Teacher ID not found in login session",
         variant: "destructive",
       });
       return;

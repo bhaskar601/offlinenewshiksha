@@ -42,6 +42,17 @@ const Login: React.FC = () => {
     try {
       setIsLoading(true);
 
+      // Admin login (local-only, no backend dependency)
+      if (id === "iitbhilaiadmin" && password === "iitbhilaiadmin") {
+        localStorage.setItem("adminAuth:v1", "true");
+        toast({
+          title: "Admin login",
+          description: "Welcome. Loading synced data dashboard…",
+        });
+        navigate("/admin/synced-data");
+        return;
+      }
+
       const url =
         role === "student"
           ? `${API_URL}/students/login`
@@ -55,11 +66,13 @@ const Login: React.FC = () => {
       const response = await axios.post(url, payload);
 
       if (role === "teacher") {
+        const isHttps = typeof window !== "undefined" && window.location.protocol === "https:";
         Cookies.set("teacher", JSON.stringify(response.data), {
           expires: 7,
-          secure: true,
+          secure: isHttps,
           sameSite: "strict",
         });
+        localStorage.setItem("teacher", JSON.stringify(response.data));
       } else {
         localStorage.setItem("student", JSON.stringify(response.data));
       }

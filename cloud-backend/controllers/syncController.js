@@ -2,10 +2,10 @@ const Student = require("../models/Student");
 const Quiz = require("../models/Quiz");
 const Attempt = require("../models/Attempt");
 
-async function upsertMany(Model, records = []) {
+async function upsertMany(Model, records = [], mapRecord = () => ({})) {
   for (const rec of records) {
     if (!rec || !rec.uniqueId) continue;
-    // Store original record under payload so we don't need to mirror local schema.
+    const mapped = mapRecord(rec);
     await Model.updateOne(
       { uniqueId: rec.uniqueId },
       {
@@ -13,6 +13,7 @@ async function upsertMany(Model, records = []) {
           uniqueId: rec.uniqueId,
           synced: true,
           createdAt: rec.createdAt ? new Date(rec.createdAt) : new Date(),
+          ...mapped,
           payload: rec,
         },
       },
@@ -35,9 +36,23 @@ exports.sync = async (req, res) => {
     attempts: attempts.length,
   });
 
-  await upsertMany(Student, students);
-  await upsertMany(Quiz, quizzes);
-  await upsertMany(Attempt, attempts);
+  await upsertMany(Student, students, (rec) => ({
+    studentId: rec.studentId || rec.payload?.studentId || null,
+    name: rec.name || rec.payload?.name || null,
+  }));
+
+  await upsertMany(Quiz, quizzes, (rec) => ({
+    quizId: rec.quizId || rec.payload?.quizId || null,
+    teacherId: rec.teacherId || rec.payload?.teacherId || null,
+    questions: Array.isArray(rec.questions) ? rec.questions : rec.payload?.questions || [],
+  }));
+
+  await upsertMany(Attempt, attempts, (rec) => ({
+    quizId: rec.quizId || rec.payload?.quizId || null,
+    studentId: rec.studentId || rec.payload?.studentId || null,
+    answers: Array.isArray(rec.answers) ? rec.answers : rec.payload?.answers || [],
+    attemptedAt: rec.attemptedAt ? new Date(rec.attemptedAt) : new Date(),
+  }));
 
   res.json({ ok: true });
 };

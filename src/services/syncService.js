@@ -69,6 +69,11 @@ export function getUnsyncedData() {
   };
 }
 
+// Admin/analytics UI helper (does not affect sync logic)
+export function getSyncQueue() {
+  return readQueue();
+}
+
 export function markAsSynced({ students = [], quizzes = [], attempts = [] } = {}) {
   const queue = readQueue();
   const mark = (arr, ids) =>
