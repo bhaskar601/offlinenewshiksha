@@ -181,7 +181,7 @@ const TeacherDashboard: React.FC = () => {
               </CardFooter>
             </Card>
             
-            <Card className="border-2 border-edu-purple/20 hover:border-edu-purple/40 transition-colors">
+            {/* <Card className="border-2 border-edu-purple/20 hover:border-edu-purple/40 transition-colors">
               <CardHeader>
                 <div className="flex items-start justify-between">
                   <div>
@@ -203,7 +203,7 @@ const TeacherDashboard: React.FC = () => {
                   </Button>
                 </Link>
               </CardFooter>
-            </Card>
+            </Card> */}
           </div>
           
           {/* Subject Stats */}

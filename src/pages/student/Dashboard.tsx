@@ -207,7 +207,7 @@ const StudentDashboard: React.FC = () => {
               </CardFooter>
             </Card>
 
-            <Card className="border-2 border-edu-purple/20 hover:border-edu-purple/40 transition-colors">
+            {/* <Card className="border-2 border-edu-purple/20 hover:border-edu-purple/40 transition-colors">
               <CardHeader>
                 <Users className="h-10 w-10 text-edu-purple mb-2" />
                 <CardTitle>Group Quiz</CardTitle>
@@ -231,7 +231,7 @@ const StudentDashboard: React.FC = () => {
                   </Button>
                 </Link>
               </CardFooter>
-            </Card>
+            </Card> */}
           </div>
 
           {/* Progress Section */}
