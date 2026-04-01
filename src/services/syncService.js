@@ -1,4 +1,4 @@
-import { SERVER_URL } from "../config";
+import { getServerUrl } from "../config";
 
 const STORAGE_KEY = "cloudSyncQueue:v1";
 const DEVICE_ID_KEY = "deviceId:v1";
@@ -100,7 +100,8 @@ export async function syncToServer() {
     return { ok: true, synced: 0 };
   }
 
-  const res = await fetch(`${SERVER_URL}/api/sync`, {
+  const serverUrl = getServerUrl();
+  const res = await fetch(`${serverUrl}/api/sync`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ deviceId, data }),
